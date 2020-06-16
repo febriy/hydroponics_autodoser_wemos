@@ -5,6 +5,8 @@ Goal: Automate nutrient control in a hydroponics system.
 
 # Quick Run
 
+## Bill of Material (Coming up)
+
 ## Schematics
 Schematics based on [this](https://www.youtube.com/watch?v=QW0YcxN3pao) project.
 
