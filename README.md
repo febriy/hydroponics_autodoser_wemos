@@ -31,3 +31,9 @@ float ecLowerThreshold = 1.4;
 const long pumpShutOffInterval = 10000;
 const long pumpOnInterval = 2000;
 ```
+
+# To do next
+- High EC alert
+- Record whenever pump is activated
+- Control pump through the Internet
+- Add other environmental sensors
