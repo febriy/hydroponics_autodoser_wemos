@@ -1,8 +1,8 @@
 // upload_data
 String apiKey = "xxx";
 const char* host = "api.thingspeak.com"; //pushingbox API server
-const char* MY_SSID = "SINGTEL-80D6";
-const char* MY_PWD =  "chaebisoch";
+const char* MY_SSID = "SINGTEL-xxx";
+const char* MY_PWD =  "xxx";
 
 const long dataUploadInterval = 600000; // 10 minutes
 
