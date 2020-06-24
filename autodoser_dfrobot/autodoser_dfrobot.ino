@@ -5,7 +5,7 @@
 //Tutorials and more at http://www.cabuu.com
 #include "pump_activation.h"
 #include "read_sensor.h"
-//#include "upload_data.h"
+#include "upload_data.h"
 #include "parameters.h"
 
 
@@ -13,7 +13,7 @@ void setup() {
   Serial.begin(115200);
   Pump::initialise();
   Sensors::initialise();
-  //Connection::initialise(MY_SSID,MY_PWD);
+  Connection::initialise(ssid,password);//(MY_SSID,MY_PWD);
 }
 
 void loop() {
@@ -29,10 +29,10 @@ void loop() {
   unsigned long currentMillis = millis();
 
   //Send data
-//  if (currentMillis - previousUploadMillis >= dataUploadInterval){
-//    send_data(apiKey,host, phSensorValue,ecSensorValue);
-//    previousUploadMillis = currentMillis;
-//  }
+  if (currentMillis - previousUploadMillis >= dataUploadInterval){
+    send_data(apiKey,phSensorValue,ecSensorValue);
+    previousUploadMillis = currentMillis;
+  }
   
   // Activate and deactivate pump
   

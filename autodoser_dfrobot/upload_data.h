@@ -1,70 +1,42 @@
 #include "esp8266.h"
-#include <Wire.h>
+#include "SoftwareSerial.h"
+
+#define serverIP  "184.106.153.149"
+#define serverPort  "80"
 
 unsigned long previousUploadMillis = 0;
 
+String msg;
 
+Esp8266 wifi;
+SoftwareSerial mySerial(10, 11);
 
 namespace Connection {
-  void initialise(const char* MY_SSID,const char* MY_PWD  ) {
-    Wire.begin();
-    //Serial.begin(115200);
-    Serial.print("Connecting to " + *MY_SSID);
-    WiFi.begin(MY_SSID, MY_PWD);
-    Serial.println("going into wl connect");
   
-    while (WiFi.status() != WL_CONNECTED) //not connected,..waiting to connect
-    {
-      delay(1000);
-      Serial.print(".");
+  void initialise(const char* ssid,const char* password) {
+    
+    delay(2000);                      // it will be better to delay 2s to wait esp8266 module OK
+    Serial.begin(115200);
+    mySerial.begin(115200);
+    wifi.begin(&Serial, &mySerial);   //Serial is used to communicate with esp8266 module, mySerial is used to debug
+    if (wifi.checkEsp8266()) {
+      wifi.debugPrintln("esp8266 is online!");
     }
-    Serial.println("wl connected");
-    Serial.println("");
-    Serial.println("Credentials accepted! Connected to wifi\n ");
-    Serial.println("");
-  }
+    if (wifi.connectAP(ssid, password)) {
+      wifi.debugPrintln("esp8266 is connected to AP!");
+    }
+    if (wifi.setSingleConnect()) {
+      wifi.debugPrintln("single connect!");
+    }
+    wifi.debugPrintln(wifi.getIP());
+    }
 }
 
-void send_data(String apiKey,const char* host, float phSensorValue,float ecSensorValue){
-  WiFiClient client;  //Instantiate WiFi object
-
-  //Start or API service using our WiFi Client through PushingBox
-  if (client.connect(host, 80))
-
-  {
-    String postStr = apiKey
-                 + "&field1=" + (String) phSensorValue
-                 + "&field2="      + (String) ecSensorValue
-                 + "\r\n\r\n";
-
-    // Serial.print("Requesting URL: " + url);
-
-    client.print("POST /update HTTP/1.1\n");
-    client.print("Host: api.thingspeak.com\n");
-    client.print("Connection: close\n");
-    client.print("X-THINGSPEAKAPIKEY: "+apiKey+"\n");
-    client.print("Content-Type: application/x-www-form-urlencoded\n");
-    client.print("Content-Length: ");
-    client.print(postStr.length());
-    client.print("\n\n");
-    client.print(postStr);
-
-    unsigned long timeout = millis();
-    while (client.available() == 0) {
-      if (millis() - timeout > 5000) {
-        Serial.println(">>> Client Timeout !");
-        client.stop();
-        return;
-      }
-    }
-    // Read all the lines of the reply from server and print them to Serial
-    while (client.available()) {
-      String line = client.readStringUntil('\r');
-      Serial.print(line);
-      Serial.print("Data Sent!");
-    }
-
-    Serial.println();
-    Serial.println("closing connection");
+void send_data(String apiKey, float phSensorValue, float ecSensorValue) {
+  if (wifi.connectTCPServer(serverIP, serverPort)) {
+    wifi.debugPrintln("connect TCP server OK!");
   }
+  msg = "GET /update?key="+ apiKey +"&field1="+ (String) phSensorValue+"&field2="+ (String)ecSensorValue+"\r\n";
+  wifi.sendMessage(msg);
+  delay(1000);
 }

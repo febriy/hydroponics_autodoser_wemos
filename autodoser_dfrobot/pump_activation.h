@@ -1,7 +1,7 @@
 const int phUpPumpPin =  13;
 const int phDownPumpPin =  12;
 const int ecPumpPin =  11;
-
+const int powerPin =  4;
 
 unsigned long previousMillis = 0;
 
@@ -10,6 +10,8 @@ void initialise() {
   pinMode(phUpPumpPin, OUTPUT);
   pinMode(phDownPumpPin, OUTPUT);
   pinMode(ecPumpPin, OUTPUT);
+  pinMode(powerPin, OUTPUT);
+  digitalWrite(powerPin, HIGH);
   
 }
 }
