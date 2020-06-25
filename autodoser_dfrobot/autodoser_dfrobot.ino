@@ -23,14 +23,17 @@ void loop() {
       timepoint = millis();
       
       phSensorValue = read_phSensor();
+      delay(2000);
       ecSensorValue = read_ecSensor();
+      delay(2000);
+      temperature = readTemperature();
     }
 
   unsigned long currentMillis = millis();
 
   //Send data
   if (currentMillis - previousUploadMillis >= dataUploadInterval){
-    send_data(apiKey,phSensorValue,ecSensorValue);
+    send_data(apiKey,temperature, phSensorValue,ecSensorValue);
     previousUploadMillis = currentMillis;
   }
   

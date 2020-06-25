@@ -4,7 +4,7 @@ String apiKey = "xxx";
 const char* ssid = "SINGTEL-xxx";
 const char* password =  "xxx";
 
-const long dataUploadInterval = 6000; // 10 minutes
+const long dataUploadInterval = 600000; // 10 minutes
 
 // pump_activation
 float phUpperThreshold = 14;

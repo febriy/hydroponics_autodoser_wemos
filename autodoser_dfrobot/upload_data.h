@@ -32,11 +32,11 @@ namespace Connection {
     }
 }
 
-void send_data(String apiKey, float phSensorValue, float ecSensorValue) {
+void send_data(String apiKey,float temperature, float phSensorValue, float ecSensorValue) {
   if (wifi.connectTCPServer(serverIP, serverPort)) {
     wifi.debugPrintln("connect TCP server OK!");
   }
-  msg = "GET /update?key="+ apiKey +"&field1="+ (String) phSensorValue+"&field2="+ (String)ecSensorValue+"\r\n";
+  msg = "GET /update?key="+ apiKey +"&field1="+ (String) phSensorValue+"&field2="+ (String)ecSensorValue+"&field3="+ (String)temperature+"\r\n";
   wifi.sendMessage(msg);
   delay(1000);
 }
