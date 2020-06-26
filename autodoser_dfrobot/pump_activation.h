@@ -17,6 +17,16 @@ void initialise() {
 }
 
 unsigned long check_activate_pump(unsigned long currentMillis, float phSensorValue, float ecSensorValue , float phLowerThreshold, float phUpperThreshold, float ecLowerThreshold ) {
+  Serial.print("ecSensorValue:");
+  Serial.print(ecSensorValue,1);
+  Serial.print("  EC Thresh:");
+  Serial.println(ecLowerThreshold,2);
+  Serial.print("  pH:");
+  Serial.print(phSensorValue,2);
+  Serial.print("  pH Thresh:");
+  Serial.println(phUpperThreshold,2);
+  
+  
   if (ecSensorValue < ecLowerThreshold)  {
     previousMillis = currentMillis;
     digitalWrite(ecPumpPin, HIGH);

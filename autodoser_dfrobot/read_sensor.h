@@ -44,7 +44,7 @@ float read_phSensor() {
 float read_ecSensor() {
   voltage = analogRead(EC_PIN)/1024.0*5000;  // read the voltage
   temperature = readTemperature();  // read your temperature sensor to execute temperature compensation
-  ecSensorValue =  ec.readEC(voltage,temperature);  // convert voltage to EC with temperature compensation
+  ecSensorValue =  ec.readEC(voltage,temperature) - 0.5 ;  // convert voltage to EC with temperature compensation
   Serial.print("temperature:");
   Serial.print(temperature,1);
   Serial.print("^C  EC:");
