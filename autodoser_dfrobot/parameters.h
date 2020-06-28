@@ -11,5 +11,5 @@ float phUpperThreshold = 6.3;
 float phLowerThreshold = 0;
 float ecLowerThreshold = 1.8;
 
-const long pumpShutOffInterval = 1200000;// 20 mins
+const long pumpShutOffInterval = 1250000;// 20 mins
 const long pumpOnInterval = 2000;

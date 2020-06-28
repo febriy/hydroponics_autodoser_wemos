@@ -24,19 +24,21 @@ namespace Connection {
     }
     if (wifi.connectAP(ssid, password)) {
       wifi.debugPrintln("esp8266 is connected to AP!");
-    }
+      }
+    
     if (wifi.setSingleConnect()) {
       wifi.debugPrintln("single connect!");
     }
+  
     wifi.debugPrintln(wifi.getIP());
     }
 }
 
-void send_data(String apiKey,float temperature, float phSensorValue, float ecSensorValue) {
+void send_data(String apiKey,float temperature, float phSensorValue, float ecSensorValue, float pumpVal) {
   if (wifi.connectTCPServer(serverIP, serverPort)) {
     wifi.debugPrintln("connect TCP server OK!");
   }
-  msg = "GET /update?key="+ apiKey +"&field1="+ (String) phSensorValue+"&field2="+ (String)ecSensorValue+"&field3="+ (String)temperature+"\r\n";
+  msg = "GET /update?key="+ apiKey +"&field1="+ (String) phSensorValue+"&field2="+ (String)ecSensorValue+"&field3="+ (String)temperature+"&field4="+ (String)pumpVal+ "\r\n";
   wifi.sendMessage(msg);
-  delay(1000);
+  delay(8000);
 }

@@ -34,10 +34,10 @@ float read_phSensor() {
   temperature = readTemperature();         // read your temperature sensor to execute temperature compensation
   voltage = analogRead(PH_PIN)/1024.0*5000;  // read the voltage
   phSensorValue = ph.readPH(voltage,temperature);  // convert voltage to pH with temperature compensation
-  Serial.print("temperature:");
-  Serial.print(temperature,1);
-  Serial.print("^C  pH:");
-  Serial.println(phSensorValue,2);
+//  Serial.print("temperature:");
+//  Serial.print(temperature,1);
+//  Serial.print("^C  pH:");
+//  Serial.println(phSensorValue,2);
   return phSensorValue;
 }
 
@@ -45,10 +45,10 @@ float read_ecSensor() {
   voltage = analogRead(EC_PIN)/1024.0*5000;  // read the voltage
   temperature = readTemperature();  // read your temperature sensor to execute temperature compensation
   ecSensorValue =  ec.readEC(voltage,temperature) - 0.5 ;  // convert voltage to EC with temperature compensation
-  Serial.print("temperature:");
-  Serial.print(temperature,1);
-  Serial.print("^C  EC:");
-  Serial.print(ecSensorValue,2);
-  Serial.println("ms/cm");
+//  Serial.print("temperature:");
+//  Serial.print(temperature,1);
+//  Serial.print("^C  EC:");
+//  Serial.print(ecSensorValue,2);
+//  Serial.println("ms/cm");
   return ecSensorValue;
 }
