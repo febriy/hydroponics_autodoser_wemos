@@ -40,5 +40,5 @@ void send_data(String apiKey,float temperature, float phSensorValue, float ecSen
   }
   msg = "GET /update?key="+ apiKey +"&field1="+ (String) phSensorValue+"&field2="+ (String)ecSensorValue+"&field3="+ (String)temperature+"&field4="+ (String)pumpVal+ "\r\n";
   wifi.sendMessage(msg);
-  delay(8000);
+  delay(1000);
 }
